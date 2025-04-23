@@ -1,7 +1,9 @@
 export interface Plant {
   id: number;
   name: string;
-  latinName?: string;
+  scientificName: string;
   description: string;
-  status: string;
+  habitat: string;
+  conservationStatus: string;
+  imageUrl: string;
 }

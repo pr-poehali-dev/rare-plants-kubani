@@ -1,6 +1,6 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Plant } from "@/types/plant";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface PlantCardProps {
   plant: Plant;
@@ -8,32 +8,35 @@ interface PlantCardProps {
 
 const PlantCard = ({ plant }: PlantCardProps) => {
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1">
-      <div className="h-48 overflow-hidden bg-secondary">
-        <img 
-          src="/placeholder.svg" 
-          alt={plant.name} 
+    <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <div className="h-48 overflow-hidden bg-green-100">
+        <img
+          src={plant.imageUrl}
+          alt={plant.name}
           className="w-full h-full object-cover"
         />
       </div>
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl text-primary font-bold">{plant.name}</CardTitle>
-        <CardDescription className="text-sm italic">{plant.latinName || "Латинское название"}</CardDescription>
+        <div className="flex flex-col space-y-1">
+          <CardTitle className="text-xl text-primary">{plant.name}</CardTitle>
+          <p className="text-sm italic text-gray-500">{plant.scientificName}</p>
+        </div>
       </CardHeader>
       <CardContent>
-        <p className="text-sm line-clamp-3">{plant.description}</p>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <div className="text-xs text-muted-foreground">
-          <span className="inline-flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-accent-foreground"></span> 
-            {plant.status}
-          </span>
+        <p className="text-sm text-gray-700 mb-4">{plant.description}</p>
+        <div className="space-y-3">
+          <div>
+            <h4 className="text-sm font-semibold mb-1">Место обитания:</h4>
+            <p className="text-sm text-gray-600">{plant.habitat}</p>
+          </div>
+          <div>
+            <h4 className="text-sm font-semibold mb-1">Статус сохранения:</h4>
+            <Badge variant="outline" className="bg-green-50 text-primary border-primary">
+              {plant.conservationStatus}
+            </Badge>
+          </div>
         </div>
-        <Button variant="outline" size="sm" className="hover:bg-primary hover:text-primary-foreground">
-          Подробнее
-        </Button>
-      </CardFooter>
+      </CardContent>
     </Card>
   );
 };
